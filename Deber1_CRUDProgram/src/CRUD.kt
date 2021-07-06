@@ -123,7 +123,7 @@ class CRUD {
                         val datArray = date.split("/") as ArrayList<String>
                         val year = datArray[2].toInt()
                         val month = datArray[1].toInt()
-                        val day = datArray[1].toInt()
+                        val day = datArray[0].toInt()
                         it.setCreationDate(LocalDate.of(year,month,day))
                     }
                 }
