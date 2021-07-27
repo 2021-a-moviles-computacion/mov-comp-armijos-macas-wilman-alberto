@@ -57,6 +57,22 @@ class MainActivity : AppCompatActivity() {
             abrirCicloVida(SQLiteActivity::class.java)
         }
 
+        val btnIrRecyclerView = findViewById<Button>(
+            R.id.btn_recyclerView
+        )
+
+        btnIrRecyclerView.setOnClickListener {
+            abrirCicloVida(RecyclerViewAct::class.java)
+        }
+
+        val btnIrHTTP = findViewById<Button>(
+            R.id.btn_Ir_HTTP
+        )
+
+        btnIrHTTP.setOnClickListener {
+            abrirCicloVida(HTTPActivity::class.java)
+        }
+
         /* if(DataBaseCompanion.TablaUsuario!=null) {
             DataBaseCompanion.TablaUsuario.crearUsuarioFormulario()
             DataBaseCompanion.TablaUsuario.consultarUsuarioPorId()
@@ -65,8 +81,6 @@ class MainActivity : AppCompatActivity() {
         }*/
 
     }
-
-
 
     fun abrirCicloVida(
         myClass: Class<*>

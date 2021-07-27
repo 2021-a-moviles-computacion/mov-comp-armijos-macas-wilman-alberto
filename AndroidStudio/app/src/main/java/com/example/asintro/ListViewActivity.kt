@@ -30,10 +30,10 @@ class ListViewActivity : AppCompatActivity() {
         )
         listViewEjemplo.adapter=adapter
 
-        val btnChangeNumber = findViewById<Button>(
+        val btnAddTrainer = findViewById<Button>(
             R.id.btn_agregar
         )
-        btnChangeNumber.setOnClickListener { addTrainer(
+        btnAddTrainer.setOnClickListener { addTrainer(
             TrainerBean("Hello","World",LeagueBean("Hola","Mundo")),
             trainersArray,
             adapter
@@ -42,43 +42,34 @@ class ListViewActivity : AppCompatActivity() {
 
         listViewEjemplo.setOnItemLongClickListener{adapterView, view, position, id ->
             Log.i("listViewEjemplo","click done ${position}")
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Titulo")
+            builder.setMessage("Mensaje")
+            val seleccionUsuario = booleanArrayOf(
+                true, false, false
+            )
+            val opciones = resources.getStringArray(R.array.string_array_dialog_options)
+            builder.setMultiChoiceItems(
+                opciones,
+                seleccionUsuario,
+                { dialog, which, isChecked ->
+                    Log.i("listView", "${which} ${isChecked}")
+                }
+            )
+            builder.setPositiveButton(
+                "Si",
+                {
+                        dialog,which -> Log.i("List-view","Si")
+                }
+            )
+            builder.setNegativeButton(
+                "No",
+                null
+            )
+            val dialogo = builder.create()
+            dialogo.show()
             return@setOnItemLongClickListener true
         }
-
-        val builder = AlertDialog.Builder(this)
-
-        builder.setTitle("Titulo")
-        builder.setMessage("Mensaje")
-
-        val seleccionUsuario = booleanArrayOf(
-            true,
-            false,
-            false
-        )
-
-        val opciones = resources.getStringArray(R.array.string_array_dialog_options)
-        builder.setMultiChoiceItems(
-            opciones,
-            seleccionUsuario,
-            { dialog, which, isChecked ->
-                Log.i("listView", "${which} ${isChecked}")
-            }
-        )
-
-        builder.setPositiveButton(
-            "Si",
-            {
-                dialog,which -> Log.i("List-view","Si")
-            }
-        )
-
-        builder.setNegativeButton(
-            "No",
-            null
-        )
-
-        val dialogo = builder.create()
-        dialogo.show()
 
 
 

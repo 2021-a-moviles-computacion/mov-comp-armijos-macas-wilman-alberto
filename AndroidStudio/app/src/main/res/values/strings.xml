@@ -6,6 +6,9 @@
         <item>2</item>
         <item>3</item>>
     </string-array>
+    <string-array name="stringArraySQL">
+        <item>1</item>
+    </string-array>
 
 
 </resources>

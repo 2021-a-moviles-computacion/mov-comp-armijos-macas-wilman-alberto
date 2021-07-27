@@ -34,7 +34,7 @@ class SQLiteHelper(
         val conexionEscritura = writableDatabase
         val aGuardar = ContentValues()
         aGuardar.put("nombre",nombre)
-        aGuardar.put("descripcion",descripcion)
+        aGuardar.put("desrcipcion",descripcion)
         val resultadoEscritura: Long = conexionEscritura.insert(
             "usuario",
             null,
@@ -89,7 +89,7 @@ class SQLiteHelper(
         val conexionEscritura = writableDatabase
         val valoresActualizar = ContentValues()
         valoresActualizar.put("nombre",nombre)
-        valoresActualizar.put("descripcion",descripcion)
+        valoresActualizar.put("desrcipcion",descripcion)
         val resultadoActualizacion = conexionEscritura.update(
             "usuario",
             valoresActualizar,
