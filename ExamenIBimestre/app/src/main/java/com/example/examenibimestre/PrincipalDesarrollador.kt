@@ -1,5 +1,6 @@
 package com.example.examenibimestre
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 
 class PrincipalDesarrollador : AppCompatActivity() {
     var selectedItemPosition = 0
@@ -16,6 +18,7 @@ class PrincipalDesarrollador : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_principal_desarrollador)
+
 
         DataBaseCompanion.Database = SQLite(this)
 
@@ -27,6 +30,28 @@ class PrincipalDesarrollador : AppCompatActivity() {
 
         val irCrearDesarrollador = btnIrCrearDesarrollador.setOnClickListener {
             openActivity(CrearDesarrollador::class.java)
+        }
+
+        val btnVolverPrincipal = findViewById<Button>(
+            R.id.btn_RegresarPaginaPrincipal
+        )
+
+        val regresarDesarrollador = btnVolverPrincipal.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Desarrolladores")
+            builder.setMessage("¿Está seguro que desea volver a la Pagina Principal?")
+            builder.setPositiveButton(
+                "Sí", DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
+                    this.finish()
+                }
+            )
+            builder.setNegativeButton(
+                "No", DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
+                }
+            )
+            builder.show()
         }
 
     }
@@ -47,6 +72,7 @@ class PrincipalDesarrollador : AppCompatActivity() {
     }
 
 
+
     override fun onContextItemSelected(item: MenuItem): Boolean {
         var desarrolladorSeleccionado = DataBaseCompanion.Database!!.consultarListaDesarrolladores()[selectedItemPosition]
         return when(item?.itemId){
@@ -57,11 +83,27 @@ class PrincipalDesarrollador : AppCompatActivity() {
             }
 
             R.id.mi_eliminarDes -> {
-                if (DataBaseCompanion.Database != null) {
-                    DataBaseCompanion.Database!!.eliminarDesarrollador(desarrolladorSeleccionado.getIdDesarrollador()!!)
-                    adapter?.remove(adapter!!.getItem(selectedItemPosition))
-                    adapter?.notifyDataSetChanged()
-                }
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Eliminar")
+                builder.setMessage("¿Está seguro que desea eliminar el Desarrollador ${desarrolladorSeleccionado.getNombre()}?")
+                builder.setPositiveButton(
+                    "Sí", DialogInterface.OnClickListener { dialog, id ->
+                        if (DataBaseCompanion.Database != null) {
+                            DataBaseCompanion.Database!!.eliminarDesarrollador(desarrolladorSeleccionado.getIdDesarrollador()!!)
+                            adapter?.remove(adapter!!.getItem(selectedItemPosition))
+                            adapter?.notifyDataSetChanged()
+                            actualList()
+                        }
+                        dialog.cancel()
+                    }
+                )
+                builder.setNegativeButton(
+                    "No", DialogInterface.OnClickListener { dialog, id ->
+                        dialog.cancel()
+                    }
+                )
+                builder.show()
+
                 return true
             }
 

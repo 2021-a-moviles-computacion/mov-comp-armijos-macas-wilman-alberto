@@ -1,11 +1,13 @@
 package com.example.examenibimestre
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputFilter
 import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 
 class EditarAplicacion : AppCompatActivity() {
     var idAplicacion = 0
@@ -88,21 +90,35 @@ class EditarAplicacion : AppCompatActivity() {
         )
 
         val clicEditarAplicacion = editarAplicacion.setOnClickListener {
-            var terminadoValor=true
-            if (txt_Terminado.text.toString()=="false") {
-                terminadoValor=false
-            }
-            DataBaseCompanion.Database!!.actualizarAplicacion(
-                idAplicacion,
-                idDesarrolladorAplicacion,
-                txt_nombreAplicacion.text.toString(),
-                txt_LenguajeProgramacion.text.toString(),
-                txt_Plataforma.text.toString(),
-                txt_PublicoObjetivo.text.toString(),
-                terminadoValor,
-                txt_Precio.text.toString().toDouble()
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Editar Aplicación")
+            builder.setMessage("¿Está seguro que desea editar la Aplicación?")
+            builder.setPositiveButton(
+                "Sí", DialogInterface.OnClickListener { dialog, id ->
+                    var terminadoValor=true
+                    if (txt_Terminado.text.toString()=="false") {
+                        terminadoValor=false
+                    }
+                    DataBaseCompanion.Database!!.actualizarAplicacion(
+                        idAplicacion,
+                        idDesarrolladorAplicacion,
+                        txt_nombreAplicacion.text.toString(),
+                        txt_LenguajeProgramacion.text.toString(),
+                        txt_Plataforma.text.toString(),
+                        txt_PublicoObjetivo.text.toString(),
+                        terminadoValor,
+                        txt_Precio.text.toString().toDouble()
+                    )
+                    dialog.cancel()
+                }
             )
-            this.finish()
+            builder.setNegativeButton(
+                "No", DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
+                }
+            )
+            builder.show()
+
         }
 
         val volverAplicacion = findViewById<Button>(
@@ -110,7 +126,21 @@ class EditarAplicacion : AppCompatActivity() {
         )
 
         val clicVolverAplicacion = volverAplicacion.setOnClickListener {
-            this.finish()
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Editar Aplicación")
+            builder.setMessage("¿Está seguro que desea volver a la lista de Aplicaciones?")
+            builder.setPositiveButton(
+                "Sí", DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
+                    this.finish()
+                }
+            )
+            builder.setNegativeButton(
+                "No", DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
+                }
+            )
+            builder.show()
         }
 
     }

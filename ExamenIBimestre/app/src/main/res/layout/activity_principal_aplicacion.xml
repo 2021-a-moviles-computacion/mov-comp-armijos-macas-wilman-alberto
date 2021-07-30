@@ -23,11 +23,11 @@
         android:id="@+id/ltv_Aplicaciones"
         android:layout_width="376dp"
         android:layout_height="300dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="20dp"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btn_RegresarAplicacionesDesarrollador"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.457"
+        app:layout_constraintHorizontal_bias="0.542"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -47,8 +47,8 @@
         android:id="@+id/txt_desarrolladorAplicacion"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="56dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="28dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:padding="0sp"
@@ -60,17 +60,32 @@
         android:paddingBottom="0sp"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/btn_IrCrearAplicacion"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="56dp"
+        android:layout_marginBottom="28dp"
         android:text="Desarrollador:"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/btn_IrCrearAplicacion"
         app:layout_constraintEnd_toStartOf="@+id/txt_desarrolladorAplicacion"
-        app:layout_constraintHorizontal_bias="0.44"
+        app:layout_constraintHorizontal_bias="0.698"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/btn_RegresarAplicacionesDesarrollador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="72dp"
+        android:text="VOLVER"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

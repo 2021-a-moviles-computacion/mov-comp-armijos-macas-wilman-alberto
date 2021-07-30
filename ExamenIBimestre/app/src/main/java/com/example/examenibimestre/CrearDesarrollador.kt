@@ -1,11 +1,12 @@
 package com.example.examenibimestre
 
-import android.app.Dialog
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 
 class CrearDesarrollador : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,28 +37,59 @@ class CrearDesarrollador : AppCompatActivity() {
             R.id.btn_CrearDesarrollador
         )
 
-        /*
-        val desarrollador = Desarrollador()
-        desarrollador.setNombre(txt_Nombre.text.toString())
-        desarrollador.setInstruccion(txt_Instruccion.text.toString())
-        desarrollador.setEmpresa(txt_Empresa.text.toString())
-        desarrollador.setEdad(txt_Edad.text.toString().toInt())
-        desarrollador.setSexo(txt_Sexo.text.toString().toCharArray().get(0))
-        */
 
         val clicCrearDesarrollador = crearDesarrollador.setOnClickListener {
-            val resultadoCrearDesarrollador = DataBaseCompanion.Database?.crearDesarrollador(
-                txt_Nombre.text.toString(),
-                txt_Instruccion.text.toString(),
-                txt_Empresa.text.toString(),
-                txt_Edad.text.toString().toInt(),
-                txt_Sexo.text.toString().toCharArray().get(0)
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Crear Desarrollador")
+            builder.setMessage("¿Está seguro que desea crear el nuevo Desarrollador?")
+            builder.setPositiveButton(
+                "Sí", DialogInterface.OnClickListener { dialog, id ->
+                    val resultadoCrearDesarrollador = DataBaseCompanion.Database?.crearDesarrollador(
+                        txt_Nombre.text.toString(),
+                        txt_Instruccion.text.toString(),
+                        txt_Empresa.text.toString(),
+                        txt_Edad.text.toString().toInt(),
+                        txt_Sexo.text.toString().toCharArray().get(0)
+                    )
+                    txt_Nombre.setText("")
+                    txt_Instruccion.setText("")
+                    txt_Empresa.setText("")
+                    txt_Edad.setText("")
+                    txt_Sexo.setText("")
+                    dialog.cancel()
+                }
             )
-            if (resultadoCrearDesarrollador == true) {
-                this.finish()
-            }
-
+            builder.setNegativeButton(
+                "No", DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
+                }
+            )
+            builder.show()
         }
+
+        val volverDesarrollador = findViewById<Button>(
+            R.id.btn_RegresarCrearDesarrollador
+        )
+
+        val volverAntesDesarrollador = volverDesarrollador.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Crear Desarrollador")
+            builder.setMessage("¿Está seguro que desea volver a la lista de Desarrolladores?")
+            builder.setPositiveButton(
+                "Sí", DialogInterface.OnClickListener { dialog, id ->
+                    // Aquí la lógica
+                    dialog.cancel()
+                    this.finish()
+                }
+            )
+            builder.setNegativeButton(
+                "No", DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
+                }
+            )
+            builder.show()
+        }
+
 
     }
 

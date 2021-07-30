@@ -1,11 +1,13 @@
 package com.example.examenibimestre
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputFilter
 import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 
 class CrearAplicacion : AppCompatActivity() {
     var idDesarrollador = 0
@@ -67,20 +69,63 @@ class CrearAplicacion : AppCompatActivity() {
         )
 
         val clicCrearAplicacion = btnCrearAplicacion.setOnClickListener {
-            var terminadoValor = true
-            if (txt_Terminado.text.toString().toInt()==0) {
-                terminadoValor = false
-            }
-            val resultadoCrearAplicacion = DataBaseCompanion.Database?.crearAplicacion(
-                idDesarrollador,
-                txt_Nombre.text.toString(),
-                txt_LenguajeProgramacion.text.toString(),
-                txt_Plataforma.text.toString(),
-                txt_PublicoObjetivo.text.toString(),
-                terminadoValor,
-                txt_Precio.text.toString().toDouble()
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Crear Aplicación")
+            builder.setMessage("¿Está seguro que desea crear la Aplicación?")
+            builder.setPositiveButton(
+                "Sí", DialogInterface.OnClickListener { dialog, id ->
+                    var terminadoValor = true
+                    if (txt_Terminado.text.toString().toInt()==0) {
+                        terminadoValor = false
+                    }
+                    val resultadoCrearAplicacion = DataBaseCompanion.Database?.crearAplicacion(
+                        idDesarrollador,
+                        txt_Nombre.text.toString(),
+                        txt_LenguajeProgramacion.text.toString(),
+                        txt_Plataforma.text.toString(),
+                        txt_PublicoObjetivo.text.toString(),
+                        terminadoValor,
+                        txt_Precio.text.toString().toDouble()
+                    )
+                    txt_Nombre.setText("")
+                    txt_LenguajeProgramacion.setText("")
+                    txt_Plataforma.setText("")
+                    txt_PublicoObjetivo.setText("")
+                    txt_Terminado.setText("")
+                    txt_Precio.setText("")
+                    dialog.cancel()
+                }
             )
-            this.finish()
+            builder.setNegativeButton(
+                "No", DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
+                }
+            )
+            builder.show()
+
+        }
+
+        val volverAplicacion = findViewById<Button>(
+            R.id.btn_RegresarCrearAplicacion
+        )
+
+        val volverAntesAplicacion = volverAplicacion.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Crear Aplicación")
+            builder.setMessage("¿Está seguro que desea volver a la lista de Aplicaciones?")
+            builder.setPositiveButton(
+                "Sí", DialogInterface.OnClickListener { dialog, id ->
+                    // Aquí la lógica
+                    dialog.cancel()
+                    this.finish()
+                }
+            )
+            builder.setNegativeButton(
+                "No", DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
+                }
+            )
+            builder.show()
         }
 
     }

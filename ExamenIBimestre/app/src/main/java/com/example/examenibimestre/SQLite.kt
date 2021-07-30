@@ -132,8 +132,6 @@ class SQLite(contexto: Context?): SQLiteOpenHelper(
         }
         baseDatosLectura.close()
         resultadoLectura.close()
-        Log.i("listaDesarrolladores","El tamaño de la lista es: ${listaDesarrolladores.size}")
-        println("${listaDesarrolladores.size}")
         return listaDesarrolladores
     }
 
@@ -176,84 +174,6 @@ class SQLite(contexto: Context?): SQLiteOpenHelper(
         resultadoLectura.close()
         return listaAplicaciones
     }
-
-    // PARA CONSULTAR UN OBJETO UNITARIO
-
-
-    fun consultarDesarrollador(idDesarrollador: Int): Desarrollador{
-        val scriptConsultarDesarrollador = """
-            select * from Desarrollador where idDesarrollador=${idDesarrollador}
-        """.trimIndent()
-        val baseDatosLectura = readableDatabase
-        val resultadoLectura = baseDatosLectura.rawQuery(scriptConsultarDesarrollador, null)
-        //val arregloUsuario = arrayListOf<Usuario>()
-        val desarrolladorEncontrado = Desarrollador(0,"","","",0,'H')
-        if (resultadoLectura.moveToFirst()) {
-            do {
-                val idDesarrolladorObtenido = resultadoLectura.getInt(0)
-                val nombre = resultadoLectura.getString(1)
-                val instruccion = resultadoLectura.getString(2)
-                val empresa = resultadoLectura.getString(3)
-                val edad = resultadoLectura.getString(4).toInt()
-                val sexo = resultadoLectura.getString(5).toCharArray()[0]
-                if (idDesarrolladorObtenido!=null) {
-                    desarrolladorEncontrado.setIdDesarrollador(idDesarrolladorObtenido)
-                    desarrolladorEncontrado.setNombre(nombre)
-                    desarrolladorEncontrado.setInstruccion(instruccion)
-                    desarrolladorEncontrado.setEmpresa(empresa)
-                    desarrolladorEncontrado.setEdad(edad)
-                    desarrolladorEncontrado.setSexo(sexo)
-                    //arreloUsuaroi.add(usuarioEncontrado)
-                }
-            } while (resultadoLectura.moveToNext())
-        }
-        baseDatosLectura.close()
-        resultadoLectura.close()
-        return desarrolladorEncontrado
-    }
-
-    fun consultarAplicacion(idAplicacion: Int, idDesarrolladorAplicacion: Int): Aplicacion{
-        val scriptConsultarAplicacion = """
-            select * from Aplicacion where idAplicacion=${idAplicacion} and Desarrollador.idDesarrollador=${idDesarrolladorAplicacion}
-        """.trimIndent()
-        val baseDatosLectura = readableDatabase
-        val resultadoLectura = baseDatosLectura.rawQuery(scriptConsultarAplicacion, null)
-        //val arregloUsuario = arrayListOf<Usuario>()
-        val aplicacionEncontrada = Aplicacion(0,0,"","","","",true,0.0)
-        if (resultadoLectura.moveToFirst()) {
-            do {
-                val idAplicacionObtenido = resultadoLectura.getInt(0)
-                val idDesarrolladorAplicacionObtenido = resultadoLectura.getInt(1)
-                val nombre = resultadoLectura.getString(2)
-                val lenguajeProgramacion = resultadoLectura.getString(3)
-                val plataforma = resultadoLectura.getString(4)
-                val publicoObjetivo = resultadoLectura.getString(5)
-                var terminado = true
-                if (resultadoLectura.getString(6).toInt()==0) {
-                    terminado = false
-                }
-                val precio = resultadoLectura.getDouble(7)
-                if (idAplicacionObtenido!=null) {
-                    aplicacionEncontrada.setIdAplicacion(idAplicacionObtenido)
-                    aplicacionEncontrada.setIdDesarrolladorAplicacion(idDesarrolladorAplicacionObtenido)
-                    aplicacionEncontrada.setNombre(nombre)
-                    aplicacionEncontrada.setLenguajeProgramacion(lenguajeProgramacion)
-                    aplicacionEncontrada.setPlataforma(plataforma)
-                    aplicacionEncontrada.setPublicoObjetivo(publicoObjetivo)
-                    aplicacionEncontrada.setTerminado(terminado)
-                    aplicacionEncontrada.setPrecio(precio)
-                    //arreloUsuaroi.add(usuarioEncontrado)
-                }
-            } while (resultadoLectura.moveToNext())
-        }
-        baseDatosLectura.close()
-        resultadoLectura.close()
-        return aplicacionEncontrada
-    }
-
-
-
-    // PARA ACTUALIZAR OBJETOS
 
     fun actualizarDesarrollador(
         idDesarrollador: Int,

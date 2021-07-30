@@ -1,10 +1,12 @@
 package com.example.examenibimestre
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputFilter
 import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
 
@@ -60,15 +62,29 @@ class EditarDesarrollador : AppCompatActivity() {
         val idDesarrollador = desarrollador.getIdDesarrollador()
 
         val clicEditarDesarrollador = editarDesarrollador.setOnClickListener {
-            DataBaseCompanion.Database!!.actualizarDesarrollador(
-                idDesarrollador!!,
-                txt_nombre.text.toString(),
-                txt_instruccion.text.toString(),
-                txt_empresa.text.toString(),
-                txt_edad.text.toString().toInt(),
-                txt_nombre.text.toString().toCharArray()[0]
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Editar Desarrollador")
+            builder.setMessage("¿Está seguro que desea editar el Desarrollador?")
+            builder.setPositiveButton(
+                "Sí", DialogInterface.OnClickListener { dialog, id ->
+                    DataBaseCompanion.Database!!.actualizarDesarrollador(
+                        idDesarrollador!!,
+                        txt_nombre.text.toString(),
+                        txt_instruccion.text.toString(),
+                        txt_empresa.text.toString(),
+                        txt_edad.text.toString().toInt(),
+                        txt_sexo.text.toString().toCharArray()[0]
+                    )
+                    dialog.cancel()
+                }
             )
-            this.finish()
+            builder.setNegativeButton(
+                "No", DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
+                }
+            )
+            builder.show()
+
         }
 
         val volverDesarrollador = findViewById<Button>(
@@ -76,7 +92,21 @@ class EditarDesarrollador : AppCompatActivity() {
         )
 
         val clicVolverDesarrollador = volverDesarrollador.setOnClickListener {
-            this.finish()
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Editar Desarrollador")
+            builder.setMessage("¿Está seguro que desea volver a la lsita de Desarrolladores?")
+            builder.setPositiveButton(
+                "Sí", DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
+                    this.finish()
+                }
+            )
+            builder.setNegativeButton(
+                "No", DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
+                }
+            )
+            builder.show()
         }
 
 

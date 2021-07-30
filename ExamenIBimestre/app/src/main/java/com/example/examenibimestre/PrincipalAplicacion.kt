@@ -1,13 +1,15 @@
 package com.example.examenibimestre
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
+import android.text.InputFilter
 import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 
 class PrincipalAplicacion : AppCompatActivity() {
     var selectedItemPosition = 0
@@ -29,6 +31,15 @@ class PrincipalAplicacion : AppCompatActivity() {
         )
 
         txt_desarrollador.setText(nombreDesarrollador)
+        txt_desarrollador.filters = arrayOf(
+            InputFilter { src, start, end, dst, dstart, dend ->
+                if (src.length < 1) dst.subSequence(
+                    dstart,
+                    dend
+                ) else ""
+            }
+        )
+
 
         listaActual()
 
@@ -39,6 +50,28 @@ class PrincipalAplicacion : AppCompatActivity() {
 
         val irCrearAplicacion = btnIrCrearAplicacion.setOnClickListener {
             openActivityParameters(CrearAplicacion::class.java,desarrollador.getIdDesarrollador()!!,desarrollador.getNombre()!!,null)
+        }
+
+        val btnVolverDesarrollador = findViewById<Button>(
+            R.id.btn_RegresarAplicacionesDesarrollador
+        )
+
+        val regresarDesarrollador = btnVolverDesarrollador.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Aplicaciones")
+            builder.setMessage("¿Está seguro que desea volver a la lista de Desarrolladores?")
+            builder.setPositiveButton(
+                "Sí", DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
+                    this.finish()
+                }
+            )
+            builder.setNegativeButton(
+                "No", DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
+                }
+            )
+            builder.show()
         }
 
     }
@@ -90,11 +123,27 @@ class PrincipalAplicacion : AppCompatActivity() {
                 return true
             }
             R.id.mi_eliminarAp -> {
-                if (DataBaseCompanion.Database != null) {
-                    DataBaseCompanion.Database!!.eliminarAplicacion(aplicacionSeleccionada.getIdAplicacion()!!,idDesarrollador)
-                    adapter?.remove(adapter!!.getItem(selectedItemPosition))
-                    adapter?.notifyDataSetChanged()
-                }
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Eliminar")
+                builder.setMessage("¿Está seguro que desea eliminar la Aplicación ${aplicacionSeleccionada.getNombre()}?")
+                builder.setPositiveButton(
+                    "Sí", DialogInterface.OnClickListener { dialog, id ->
+                        if (DataBaseCompanion.Database != null) {
+                            DataBaseCompanion.Database!!.eliminarAplicacion(aplicacionSeleccionada.getIdAplicacion()!!,idDesarrollador)
+                            adapter?.remove(adapter!!.getItem(selectedItemPosition))
+                            adapter?.notifyDataSetChanged()
+                            listaActual()
+                        }
+                        dialog.cancel()
+                    }
+                )
+                builder.setNegativeButton(
+                    "No", DialogInterface.OnClickListener { dialog, id ->
+                        dialog.cancel()
+                    }
+                )
+                builder.show()
+
                 return true
             }
             else -> super.onContextItemSelected(item)
