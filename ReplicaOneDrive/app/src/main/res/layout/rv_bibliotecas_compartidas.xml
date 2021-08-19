@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="270px"
+    android:layout_height="350px"
+    android:orientation="vertical"
+    android:padding="30px">
+
+
+    <TextView
+        android:id="@+id/txv_abrvTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@drawable/rounded"
+        android:paddingTop="23px"
+        android:text="E"
+        android:textAlignment="center"
+        android:textColor="@color/ODBlanco"
+        android:textSize="34sp" />
+
+    <TextView
+        android:id="@+id/txv_DescripcionBib"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginTop="10px"
+        android:text="Ejemplo"
+        android:textAlignment="center" />
+</LinearLayout>
