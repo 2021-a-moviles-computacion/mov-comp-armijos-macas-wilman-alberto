@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "398438827905",
+    "project_id": "mov-comp-2021-a-arm-mac",
+    "storage_bucket": "mov-comp-2021-a-arm-mac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:398438827905:android:f066b557e8056f1e1f4a80",
+        "android_client_info": {
+          "package_name": "com.example.firebaseforma1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "398438827905-gjn9imagroahd2pql2luj1ib00r5292r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0eUb89J5BQOOsWrUAidoXQpihLQUZBUY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "398438827905-gjn9imagroahd2pql2luj1ib00r5292r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
