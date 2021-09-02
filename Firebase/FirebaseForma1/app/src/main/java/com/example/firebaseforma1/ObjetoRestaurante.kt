@@ -5,6 +5,6 @@ class ObjetoRestaurante(
 ) {
 
     override fun toString(): String {
-        return "Restaurante: ${nombre}"
+        return nombre
     }
 }

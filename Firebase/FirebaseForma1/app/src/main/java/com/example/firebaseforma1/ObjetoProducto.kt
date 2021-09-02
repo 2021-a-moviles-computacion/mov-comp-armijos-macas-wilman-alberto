@@ -6,7 +6,7 @@ class ObjetoProducto(
 ) {
 
     override fun toString(): String {
-        return "Producto: ${nombre} Precio: ${precio}"
+        return "$"+precio+" - "+nombre
     }
 
 }
