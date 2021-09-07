@@ -109,6 +109,9 @@ class Ordenes : AppCompatActivity() {
         registerForContextMenu(ltv_ListaOrdenes)
     }
 
+	fun completarOrden() {
+
+    }
 
     fun cargarDatos() {
         val db = Firebase.firestore
@@ -127,11 +130,9 @@ class Ordenes : AppCompatActivity() {
                         )
                     )
                 }
-                Log.i("Restaurante","Restaurantes obtenidos")
 
             }
             .addOnFailureListener {
-                Log.i("Restaurante","Restaurantes no obtenidos")
             }
 
         val referencia2 = db
@@ -149,13 +150,11 @@ class Ordenes : AppCompatActivity() {
                         )
                     )
                 }
-                Log.i("Producto","Productos no obtenidos")
 
                 agregarAlSpinner()
 
             }
             .addOnFailureListener {
-                Log.i("Producto","Productos no obtenidos")
             }
 
     }
@@ -189,9 +188,6 @@ class Ordenes : AppCompatActivity() {
         txv_precioTotal.text="$${precioTotal}"
     }
 
-    fun completarOrden() {
-
-    }
 
     fun agregarAlSpinner() {
         val sp_Restaurantes = findViewById<Spinner>(R.id.sp_Restaurante)

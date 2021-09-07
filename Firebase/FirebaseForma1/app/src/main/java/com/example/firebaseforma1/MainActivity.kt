@@ -135,15 +135,12 @@ class MainActivity : AppCompatActivity() {
             )
             db.collection("Usuario").document(identificarUsuario.toString()).
             set(nuevoUsuario).addOnSuccessListener {
-                Log.i("firebase-firestore","Se creo el usuario correctamente")
                 setUsuarioFirebase()
             }
                 .addOnFailureListener {
-                    Log.i("firebase-firestore","Fallo la creacion del usuario")
                 }
 
         } else {
-            Log.i("firebase-login","ERROR")
         }
     }
 
@@ -172,10 +169,8 @@ class MainActivity : AppCompatActivity() {
                             )
                             setBienvenida()
                         }
-                        Log.i("firebase-firestore","Usuario obtenido")
                     }
                     .addOnFailureListener {
-                        Log.i("firebase-firestore","Usuario no se pudo obtener")
                     }
 
             }
@@ -192,14 +187,11 @@ class MainActivity : AppCompatActivity() {
                 if (resultCode==Activity.RESULT_OK) {
                     val usuario = IdpResponse.fromResultIntent(data)
                     if (usuario?.isNewUser==true) {
-                        Log.i("firebase-login","El usuario es nuevo")
                         registrarUsuarioNuevo(usuario)
                     } else {
-                        Log.i("firebase-login","El usuario es antiguo")
                         setUsuarioFirebase()
                     }
                 } else {
-                    Log.i("firebase-login","El usuario canceló")
                 }
             }
         }

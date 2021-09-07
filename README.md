@@ -1,1 +1,0 @@
-# mov-comp-armijos-macas-wilman-alberto

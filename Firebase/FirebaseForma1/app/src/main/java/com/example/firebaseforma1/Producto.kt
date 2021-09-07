@@ -17,8 +17,6 @@ class Producto : AppCompatActivity() {
             crearProducto()
         }
 
-
-
     }
 
     fun crearProducto() {
