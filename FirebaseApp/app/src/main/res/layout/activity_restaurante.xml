@@ -30,11 +30,11 @@
         app:layout_constraintTop_toBottomOf="@+id/txv_NombreRestaurante" />
 
     <Button
-        android:id="@+id/btn_Datos_Pruebas"
+        android:id="@+id/btn_Transacciones"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
-        android:text="DATOS PRUEBAS"
+        android:text="TRANSACCIONES"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +49,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_Datos_Pruebas"
+        app:layout_constraintTop_toBottomOf="@+id/btn_Transacciones"
         app:layout_constraintVertical_bias="0.408" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

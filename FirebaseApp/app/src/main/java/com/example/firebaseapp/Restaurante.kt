@@ -5,10 +5,16 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
+import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class Restaurante : AppCompatActivity() {
+
+    var query: Query? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_restaurante)
@@ -23,23 +29,42 @@ class Restaurante : AppCompatActivity() {
             consultar()
         }
 
-        val btn_DatosPrueba = findViewById<Button>(R.id.btn_Datos_Pruebas)
-        btn_DatosPrueba.setOnClickListener {
-            crearDatosPrueba()
+        val btn_Transacciones = findViewById<Button>(R.id.btn_Transacciones)
+        btn_Transacciones.setOnClickListener {
+            //crearDatosPrueba()
+            realizarTransaccion()
         }
 
     }
 
+    fun realizarTransaccion() {
+        val db = Firebase.firestore
+        val citiesRef = db.collection("cities").document("SF")
+        db.runTransaction { transact ->
+            if (transact.get(citiesRef).getDouble("population")!=null){
+                transact.update(citiesRef, "population",transact.get(citiesRef).getDouble("population")!!+1.0)
+            }
+        }
+            .addOnSuccessListener {
+                Log.i("transaccion","Transaccion completada")
+            }
+            .addOnFailureListener {
+                Log.i("transaccion","Transaccion completada")
+            }
+    }
+
     fun consultar() {
         val db = Firebase.firestore
-        val citiesRef = db.collection("cities")
+        val citiesRef = db
+            .collection("cities")
+            .orderBy("population")
+            .limit(2)
+        var task: Task<QuerySnapshot>? = null
         /*
          < : less than
         <= : less than or equal to
         == : equal to
-        */
 
-        /*
         //Buscar un documento
         citiesRef.document("BJ") //ID
             .get().addOnSuccessListener {
@@ -47,7 +72,7 @@ class Restaurante : AppCompatActivity() {
             }.addOnFailureListener{
 
             }
-        */
+
 
         //Buscar por un solo campo ==
         citiesRef
@@ -60,7 +85,7 @@ class Restaurante : AppCompatActivity() {
         }
             .addOnFailureListener{}
 
-        /*
+
         //Buscar por  dos o mas elementos del campo '== 'array-contains'
         citiesRef
             .whereEqualTo("capital",false)
@@ -69,7 +94,8 @@ class Restaurante : AppCompatActivity() {
                 for(city in it){
                     Log.i("consultas","== array- contain : ${city.data}")
                 }
-            }.addOnFailureListener{}
+            }
+            .addOnFailureListener{}
 
 
         //Buscar por dos o mas campos '==' '>='
@@ -82,9 +108,43 @@ class Restaurante : AppCompatActivity() {
                     Log.i("consultas","== array- contain : ${city.data}")
                 }
             }
+            .addOnFailureListener{}
+
+        // Busqueda por dos o mas campos y orden
+        citiesRef
+            .whereEqualTo("capital",true)
+            .whereLessThanOrEqualTo("population",4000000)
+            .orderBy("population", Query.Direction.DESCENDING)
+            .get()
+            .addOnSuccessListener {
+                for(city in it) {
+                    Log.i("consultas","== array- contain : ${city.data}")
+                }
+            }
+            .addOnFailureListener{}
 
          */
+        if (query==null) { task = citiesRef.get() }
+        else { task = query!!.get() }
 
+        if (task!=null) {
+            task
+                .addOnSuccessListener { docSnaps ->
+                    guardarConsulta(docSnaps, citiesRef)
+                    for (city in docSnaps) {
+                        Log.i("consultas","${city.data}")
+                    }
+                }
+                .addOnFailureListener{
+                    Log.i("consultas","ERROR")
+                }
+        }
+    }
+
+    fun guardarConsulta(querySnap: QuerySnapshot, citiesRef: Query) {
+        if (querySnap.size()>0) {
+            query=citiesRef.startAfter(querySnap.documents[querySnap.size()-1])
+        } else  {}
     }
 
     fun crearDatosPrueba() {

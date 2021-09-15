@@ -78,8 +78,6 @@ class Ordenes : AppCompatActivity() {
         }
 
 
-        val txv_Cantidad = findViewById<EditText>(R.id.txv_CantidadProducto)
-
         val btn_AgregarProducto = findViewById<Button>(R.id.btn_AgregarOrden)
         btn_AgregarProducto.setOnClickListener {
             agregarProducto()

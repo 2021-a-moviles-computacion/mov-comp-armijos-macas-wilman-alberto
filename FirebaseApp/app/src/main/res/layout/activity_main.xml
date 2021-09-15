@@ -51,13 +51,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.553" />
 
     <Button
         android:id="@+id/btn_IrRestaurantes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
+        android:layout_marginBottom="36dp"
         android:text="IR A RESTAURANTES"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/btn_IrOrdenes"
@@ -68,9 +69,20 @@
         android:id="@+id/btn_IrOrdenes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="88dp"
+        android:layout_marginBottom="36dp"
         android:text="IR A ORDENES"
         android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/btn_VerMapa"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_VerMapa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="VER MAPA"
         app:layout_constraintBottom_toTopOf="@+id/btn_LogIn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

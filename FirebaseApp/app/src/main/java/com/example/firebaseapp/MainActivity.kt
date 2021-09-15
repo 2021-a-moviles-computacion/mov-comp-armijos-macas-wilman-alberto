@@ -62,6 +62,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val btn_VerMapa = findViewById<Button>(R.id.btn_VerMapa)
+        btn_VerMapa.setOnClickListener {
+            startActivity(Intent(this, MapActivity::class.java))
+        }
 
     }
 
