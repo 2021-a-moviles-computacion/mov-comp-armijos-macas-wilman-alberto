@@ -116,7 +116,7 @@ class CrearAplicacion : AppCompatActivity() {
             }
         }
 
-        val clicCrearAplicacion = btnCrearAplicacion.setOnClickListener {
+        btnCrearAplicacion.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Crear Aplicación")
             builder.setMessage("¿Está seguro que desea crear la Aplicación?")
@@ -126,9 +126,8 @@ class CrearAplicacion : AppCompatActivity() {
                     if (txt_Terminado.text.toString().toInt() == 0) {
                         terminadoValor = false
                     }
-                    val resultadoCrearAplicacion =
-                        FirestoreCompanion.database?.createAplicacionFS(
-                            idDesarrollador + nombreDesarrollador,
+                    FirestoreDatabase().createAplicacionFS(
+                            idDesarrollador + nombreDesarrollador + txt_Nombre.text.toString(),
                             idDesarrollador,
                             nombreDesarrollador,
                             txt_Nombre.text.toString(),
@@ -162,7 +161,7 @@ class CrearAplicacion : AppCompatActivity() {
                             }
                             map.moveCamera(
                                 CameraUpdateFactory
-                                    .newLatLngZoom(LatLng(0.0, 0.0), 10f)
+                                    .newLatLngZoom(LatLng(0.0, 0.0), 5f)
                             )
                         }
                     }
@@ -185,7 +184,7 @@ class CrearAplicacion : AppCompatActivity() {
             R.id.btn_RegresarCrearAplicacion
         )
 
-        val volverAntesAplicacion = volverAplicacion.setOnClickListener {
+        volverAplicacion.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Crear Aplicación")
             builder.setMessage("¿Está seguro que desea volver a la lista de Aplicaciones?")
@@ -230,13 +229,13 @@ class CrearAplicacion : AppCompatActivity() {
     fun configurarPermisos() {
         val context = this.applicationContext
         with(map) {
-            val permissionsLocation = androidx.core.content.ContextCompat
+            val permissionsLocation = ContextCompat
                 .checkSelfPermission(
                     context,
                     android.Manifest.permission.ACCESS_FINE_LOCATION
                 )
             val isPermitted =
-                permissionsLocation == android.content.pm.PackageManager.PERMISSION_GRANTED
+                permissionsLocation == PackageManager.PERMISSION_GRANTED
             if (isPermitted) {
                 map.isMyLocationEnabled = true
             }

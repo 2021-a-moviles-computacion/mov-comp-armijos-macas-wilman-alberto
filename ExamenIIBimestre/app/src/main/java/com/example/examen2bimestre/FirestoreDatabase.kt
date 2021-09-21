@@ -6,24 +6,6 @@ import com.google.firebase.ktx.Firebase
 
 class FirestoreDatabase() {
 
-    fun getRandomLat(): String {
-        var latitud = ""
-        val db = Firebase.firestore
-        db.collection("LatLong").document((1..10).random().toString()).get().addOnSuccessListener {
-            latitud=it.getString("latitud").toString()
-        }
-        return latitud
-    }
-
-    fun getRandomLgt(): String {
-        var longitud = ""
-        val db = Firebase.firestore
-        db.collection("LatLong").document((1..10).random().toString()).get().addOnSuccessListener {
-            longitud=it.getString("longitud").toString()
-        }
-        return longitud
-    }
-
     //CREAR DESARROLLADOR FIRESTORE
     fun createDesarrolladorFS(
         idDesarrollador: String,
@@ -92,46 +74,6 @@ class FirestoreDatabase() {
                 Log.i("firebase-firestore","Fallo la creacion de la aplicacion")
             }
         return result
-    }
-
-    //LEER UN DESARROLLADOR FIRESTORE
-    fun readOneDesarrolladorFS(
-        idDesarrollador: String
-    ): Desarrollador {
-        var objDesarrollador = Desarrollador()
-        val db = Firebase.firestore
-        db.collection("Desarrollador").document(idDesarrollador).get().addOnSuccessListener {
-            objDesarrollador.setIdDesarrollador(idDesarrollador)
-            objDesarrollador.setNombre(it.getString("nombreDesarrollador"))
-            objDesarrollador.setInstruccion(it.getString("instruccionDesarrollador"))
-            objDesarrollador.setEmpresa(it.getString("empresaDesarrollador"))
-            objDesarrollador.setEdad(it.getDouble("edadDesarrollador")!!.toInt())
-            objDesarrollador.setSexo(it.getString("sexoDesarrollador")!!.toCharArray()[0])
-        }
-        return objDesarrollador
-    }
-
-
-    //LEER UNA APLICACION FIRESTORE
-    fun readOneAplicacionFS(
-        idAplicacion: String
-    ): Aplicacion {
-        var objAplicacion = Aplicacion()
-        val db = Firebase.firestore
-        db.collection("Aplicacion").document(idAplicacion).get().addOnSuccessListener {
-            objAplicacion.setIdAplicacion(idAplicacion)
-            objAplicacion.setIdDesarrolladorAplicacion(it.getString("idDesarrolladorAplicacion"))
-            objAplicacion.setNombreDesarrolladorAplicacion(it.getString("nombreDesarrolladorAplicacion"))
-            objAplicacion.setNombre(it.getString("nombreAplicacion"))
-            objAplicacion.setLenguajeProgramacion(it.getString("lenguajeAplicacion"))
-            objAplicacion.setPlataforma(it.getString("plataformaAplicacion"))
-            objAplicacion.setPublicoObjetivo(it.getString("publicoObjetivoAplicacion"))
-            objAplicacion.setTerminado(it.getBoolean("terminadoAplicacion"))
-            objAplicacion.setPrecio(it.getDouble("precioAplicacion"))
-            objAplicacion.setLatitud(it.getString("latitudAplicacion"))
-            objAplicacion.setLongitud(it.getString("longitudAplicacion"))
-        }
-        return objAplicacion
     }
 
     // ACTUALIZAR DESARROLLADOR FIRESTORE

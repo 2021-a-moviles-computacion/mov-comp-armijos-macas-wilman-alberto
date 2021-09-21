@@ -23,9 +23,6 @@ class PrincipalDesarrollador : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_principal_desarrollador)
 
-
-        FirestoreCompanion.database = FirestoreDatabase()
-
         actualList()
 
         val btnIrCrearDesarrollador = findViewById<Button>(

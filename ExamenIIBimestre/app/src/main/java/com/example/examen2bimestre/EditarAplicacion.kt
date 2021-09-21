@@ -125,7 +125,7 @@ class EditarAplicacion : AppCompatActivity() {
                 )
                 map.moveCamera(
                     CameraUpdateFactory
-                        .newLatLngZoom(LatLng(aplicacion.getLatitud()!!.toDouble(),aplicacion.getLongitud()!!.toDouble()),17f)
+                        .newLatLngZoom(LatLng(aplicacion.getLatitud()!!.toDouble(),aplicacion.getLongitud()!!.toDouble()),15f)
                 )
                 marker.isDraggable=false
                 configurarPermisos()
@@ -144,7 +144,7 @@ class EditarAplicacion : AppCompatActivity() {
             }
         }
 
-        val clicEditarAplicacion = editarAplicacion.setOnClickListener {
+        editarAplicacion.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Editar Aplicación")
             builder.setMessage("¿Está seguro que desea editar la Aplicación?")
@@ -154,7 +154,7 @@ class EditarAplicacion : AppCompatActivity() {
                     if (txt_Terminado.text.toString()=="false") {
                         terminadoValor=false
                     }
-                    FirestoreCompanion.database!!.updateAplicacionFS(
+                    FirestoreDatabase().updateAplicacionFS(
                         idAplicacion,
                         txt_nombreAplicacion.text.toString(),
                         txt_LenguajeProgramacion.text.toString(),
@@ -181,7 +181,7 @@ class EditarAplicacion : AppCompatActivity() {
             R.id.btn_regresarVerAplicacion
         )
 
-        val clicVolverAplicacion = volverAplicacion.setOnClickListener {
+        volverAplicacion.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Editar Aplicación")
             builder.setMessage("¿Está seguro que desea volver a la lista de Aplicaciones?")
@@ -201,27 +201,6 @@ class EditarAplicacion : AppCompatActivity() {
 
     }
 
-    fun solicitarPermisos() {
-        val context = this.applicationContext
-        val permissionsLocation = ContextCompat
-            .checkSelfPermission(
-                context,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            )
-        val isPermitted = permissionsLocation == PackageManager.PERMISSION_GRANTED
-        if (isPermitted) {
-            permisos = true
-        } else {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(
-                    android.Manifest.permission.ACCESS_FINE_LOCATION
-                ),
-                1
-            )
-        }
-    }
-
     fun configurarPermisos() {
         val context = this.applicationContext
         with(map) {
@@ -238,16 +217,6 @@ class EditarAplicacion : AppCompatActivity() {
             uiSettings.isZoomControlsEnabled = true
             uiSettings.isMyLocationButtonEnabled = true
         }
-    }
-
-    fun openActivity(
-        clase: Class<*>,
-    ) {
-        val myIntent = Intent(
-            this,
-            clase
-        )
-        startActivity(myIntent)
     }
 
 

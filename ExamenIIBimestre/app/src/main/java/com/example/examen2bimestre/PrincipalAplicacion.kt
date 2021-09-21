@@ -52,7 +52,7 @@ class PrincipalAplicacion : AppCompatActivity() {
             R.id.btn_IrCrearAplicacion
         )
 
-        val irCrearAplicacion = btnIrCrearAplicacion.setOnClickListener {
+        btnIrCrearAplicacion.setOnClickListener {
             openActivityParameters(CrearAplicacion::class.java,desarrollador.getIdDesarrollador()!!,desarrollador.getNombre()!!,null)
         }
 
@@ -155,17 +155,6 @@ class PrincipalAplicacion : AppCompatActivity() {
                 return true
             }
             R.id.mi_ver_editarAp -> {
-                Log.i("irAlEditar","${aplicacionSeleccionada.getIdAplicacion()}")
-                Log.i("irAlEditar","${aplicacionSeleccionada.getDesarrolladorAplicacion()}")
-                Log.i("irAlEditar","${aplicacionSeleccionada.getPrecio()}")
-                Log.i("irAlEditar","${aplicacionSeleccionada.getLatitud()}")
-                Log.i("irAlEditar","${aplicacionSeleccionada.getLongitud()}")
-                Log.i("irAlEditar","${aplicacionSeleccionada.getLenguajeProgramacion()}")
-                Log.i("irAlEditar","${aplicacionSeleccionada.getPlataforma()}")
-                Log.i("irAlEditar","${aplicacionSeleccionada.getPublicoObjetivo()}")
-                Log.i("irAlEditar","${aplicacionSeleccionada.getNombreDesarrolladorAplicacion()}")
-                Log.i("irAlEditar","${aplicacionSeleccionada.isTerminado()}")
-                Log.i("irAlEditar","${aplicacionSeleccionada.getNombre()}")
                 openActivityParameters(EditarAplicacion::class.java,idDesarrollador,nombreDesarrollador,aplicacionSeleccionada)
                 adapter?.notifyDataSetChanged()
                 return true
@@ -196,16 +185,6 @@ class PrincipalAplicacion : AppCompatActivity() {
             }
             else -> super.onContextItemSelected(item)
         }
-    }
-
-    fun openActivity(
-        clase: Class<*>,
-    ) {
-        val myIntent = Intent(
-            this,
-            clase
-        )
-        startActivity(myIntent)
     }
 
     fun openActivityParameters(

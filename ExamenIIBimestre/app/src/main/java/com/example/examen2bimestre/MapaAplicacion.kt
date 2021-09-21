@@ -67,7 +67,7 @@ class MapaAplicacion : AppCompatActivity() {
                 )
                 map.moveCamera(
                     CameraUpdateFactory
-                        .newLatLngZoom(puntoMapa,17f)
+                        .newLatLngZoom(puntoMapa,15f)
                 )
                 map.uiSettings.isScrollGesturesEnabled = false
             }
@@ -127,7 +127,7 @@ class MapaAplicacion : AppCompatActivity() {
                 map.isMyLocationEnabled = true
             }
             uiSettings.isZoomControlsEnabled = true
-            uiSettings.isMyLocationButtonEnabled = true
+            uiSettings.isMyLocationButtonEnabled = false
         }
     }
 

@@ -57,8 +57,8 @@ class CrearDesarrollador : AppCompatActivity() {
             builder.setTitle("Crear Desarrollador")
             builder.setMessage("¿Está seguro que desea crear el nuevo Desarrollador?")
             builder.setPositiveButton(
-                "Sí", DialogInterface.OnClickListener { dialog, id ->
-                    val resultadoCrearDesarrollador = FirestoreCompanion.database?.createDesarrolladorFS(
+                "Sí", DialogInterface.OnClickListener  { dialog, id ->
+                    FirestoreDatabase().createDesarrolladorFS(
                         txt_Cedula.text.toString(),
                         txt_Nombre.text.toString(),
                         txt_Instruccion.text.toString(),

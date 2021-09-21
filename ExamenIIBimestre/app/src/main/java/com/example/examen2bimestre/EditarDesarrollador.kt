@@ -73,7 +73,7 @@ class EditarDesarrollador : AppCompatActivity() {
             builder.setMessage("¿Está seguro que desea editar el Desarrollador?")
             builder.setPositiveButton(
                 "Sí", DialogInterface.OnClickListener { dialog, id ->
-                    FirestoreCompanion.database!!.updateDesarrolladorFS(
+                    FirestoreDatabase().updateDesarrolladorFS(
                         idDesarrollador!!,
                         txt_nombre.text.toString(),
                         txt_instruccion.text.toString(),
@@ -100,7 +100,7 @@ class EditarDesarrollador : AppCompatActivity() {
         volverDesarrollador.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Editar Desarrollador")
-            builder.setMessage("¿Está seguro que desea volver a la lsita de Desarrolladores?")
+            builder.setMessage("¿Está seguro que desea volver a la lista de Desarrolladores?")
             builder.setPositiveButton(
                 "Sí", DialogInterface.OnClickListener { dialog, id ->
                     dialog.cancel()
